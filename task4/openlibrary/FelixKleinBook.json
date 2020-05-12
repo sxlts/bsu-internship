@@ -1,0 +1,28 @@
+{
+    "status": "ok",
+    "result": {
+        "title": "Felix Klein: il programma di Erlangen",
+        "created": {
+            "type": "/type/datetime",
+            "value": "2009-12-10T04:28:11.070628"
+        },
+        "last_modified": {
+            "type": "/type/datetime",
+            "value": "2009-12-10T04:28:11.070628"
+        },
+        "latest_revision": 1,
+        "key": "/works/OL3783597W",
+        "authors": [
+            {
+                "type": "/type/author_role",
+                "author": {
+                    "key": "/authors/OL668475A"
+                }
+            }
+        ],
+        "type": {
+            "key": "/type/work"
+        },
+        "revision": 1
+    }
+}
