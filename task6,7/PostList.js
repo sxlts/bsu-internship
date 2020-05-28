@@ -118,7 +118,6 @@ class PostList{
   }
 
   deletePost(token, key){
-    //SWAP WITH LAST, POP LAST
     let idIndex = this.Posts.findIndex(item => item[key] == token);
     this.Posts.splice(idIndex, 1);
   }
