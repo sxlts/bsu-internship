@@ -45,21 +45,26 @@ class PostList{
 
 	constructor(json){
     let rawPost = JSON.parse(json);
-    this.Posts = new Array;
+    this.Posts = [];
 
-    for(let i = 0 ; i < rawPost.length ; i++){
-      rawPost[i].createdAt = new Date(rawPost[i].createdAt);
+    rawPost.forEach(element => {
+      element.createdAt = new Date(element.createdAt);
 
-      if(PostList.isPost(rawPost[i]))
-        this.Posts.push(rawPost[i]);
-    }
+      if(PostList.isPost(element))
+        this.Posts.push(element);
+    });
   }
   
   addAll(newPosts){
-    for(let i = 0 ; i < newPosts.length ; ++i){
-      if(PostList.isPost(newPosts[i])) 
-        this.Posts.push(newPosts[i]);
-    }  
+    newPosts.forEach(element => {
+      if(PostList.isPost(element)) 
+        this.Posts.push(element);
+    });
+  }
+
+  addPost(post){
+    if(PostList.isPost(post))
+      this.Posts.push(post);
   }
 
   clear(){
@@ -68,11 +73,11 @@ class PostList{
 
   static printPost(post){
     if(PostList.isPost(post))
-    alert(post.id + " " + post.description + " " + post.author + " " + post.createdAt);
+      alert(post.id + " " + post.description + " " + post.author + " " + post.createdAt);
   }
 
   static isPost(post){
-    let checkPostKeys = new Array;
+    let checkPostKeys = [];
     for(let key in post){
       checkPostKeys.push(key);
     }
@@ -98,7 +103,7 @@ class PostList{
     let postIndex = this.Posts.findIndex(item => item.id == id);
 
     for(let key in post){
-      if(post[key] != null){
+      if(post[key]){
         this.Posts[postIndex][key] = post.key;
       }
     }
@@ -108,12 +113,12 @@ class PostList{
 
   deletePost(id){
     //SWAP WITH LAST, POP LAST
-    this.Posts[this.Posts.findIndex(item => item.id == id)] =this.Posts[this.Posts.length - 1];
+    this.Posts[this.Posts.findIndex(item => item.id == id)] = this.Posts[this.Posts.length - 1];
     this.Posts.pop();
   }
 	
-	getPage(Skip = 0, Top = this.Posts.length, sortConfig = `createdAt`, filterConfig = ``, filterDescription = ``){
-    let returnArray = new Array;
+  getPage(Skip = 0, Top = this.Posts.length, sortConfig = `createdAt`, filterConfig = ``, filterDescription = ``){
+    let returnArray = [];
 
     returnArray = this.Posts.filter(item => (filterConfig == `` || item[filterConfig] == filterDescription));
     returnArray = returnArray.slice(Skip, Top);
@@ -121,14 +126,4 @@ class PostList{
 
     return returnArray;
 	}
-}
-
-
-//EXAMPLE
-let postList = new PostList(ListJSON);
-
-let Posts = new Array;
-Posts = postList.getPage(0, postList.getPostsNumber(), "id", "id", 1);
-for(let i = 0 ; i < Posts.length ; ++i){
-  PostList.printPost(Posts[i]);
 }
