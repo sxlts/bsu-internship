@@ -76,6 +76,12 @@ class PostList{
       alert(post.id + " " + post.description + " " + post.author + " " + post.createdAt);
   }
 
+  static printAllPosts(postList){
+    (postList.Posts).forEach(element => {
+      PostList.printPost(element);
+    });
+  }
+
   static isPost(post){
     let checkPostKeys = [];
     for(let key in post){
@@ -111,10 +117,10 @@ class PostList{
     return true;
   }
 
-  deletePost(id){
+  deletePost(token, key){
     //SWAP WITH LAST, POP LAST
-    this.Posts[this.Posts.findIndex(item => item.id == id)] = this.Posts[this.Posts.length - 1];
-    this.Posts.pop();
+    let idIndex = this.Posts.findIndex(item => item[key] == token);
+    this.Posts.splice(idIndex, 1);
   }
 	
   getPage(Skip = 0, Top = this.Posts.length, sortConfig = `createdAt`, filterConfig = ``, filterDescription = ``){
@@ -127,3 +133,9 @@ class PostList{
     return returnArray;
 	}
 }
+
+let postList = new PostList(ListJSON);
+
+postList.deletePost(100, "id");
+
+PostList.printAllPosts(postList);
