@@ -43,7 +43,7 @@ class PostList{
 
   static #postKeys = ["id", "description", "createdAt", "author", "photoLink", "likes", "hashtags"];
 
-	constructor(json){
+  constructor(json){
     let rawPost = JSON.parse(json);
     this.Posts = [];
 
@@ -97,7 +97,7 @@ class PostList{
     return this.Posts.length;
   }
 
-	getPost(id){
+  getPost(id){
 		return this.Posts.find(item => item.id == id);
   }
   
@@ -131,7 +131,7 @@ class PostList{
     returnArray.sort((a, b) => a[sortConfig] > b[sortConfig] ? 1 : - 1);
 
     return returnArray;
-	}
+  }
 }
 
 let postList = new PostList(ListJSON);
